@@ -1,0 +1,28 @@
+#first download genome data from NCBI using wget
+#create a dictionary
+mkdir FCM
+mkdir genomes
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/002/315/GCF_000002315.6_GRCg6a/GCF_000002315.6_GRCg6a_genomic.fna.gz
+gunzip GCF_000002315.6_GRCg6a_genomic.fna.gz
+mv GCF_000002315.6_GRCg6a_genomic.fna GCF_000002315.6_chicken.fasta
+
+#clean the genome data
+python clean.py
+#put the genomes in their own dictionaries
+for critter in *; do mkdir ${critter%.*}; mv $critter ${critter%.*}; done
+
+#convert genomes into 2bit format
+for critter in *; 
+	do 
+	faToTwoBit $critter/$critter.fasta $critter/${critter%.*}.2bit; 
+done;
+
+#simulate reads from the respective genomes
+#create a dictionary of simulated reads
+mkdir reads
+cd reads
+for i in blue_crowned_manakin chimney_swift common_cuckoo crested_ibis downy_woodpecker elegant_crested_tinamou emperor_penguin emu golden_collared_manakin golden_eagle greater_rhea hoatzin many-colored_rush_tyrant rock_pigeon ostrich pekingduck royal_flycatcher peregrine_falcon spotted_owl thick-billed_guillemot white_breasted_antbird white-winged_piprites woodland_kingfisher;
+	do
+	art_illumina --in ../genomes/$i/$i.fasta --out $i-reads --len 100 --fcov 20  -ir 0.0 -dr 0.0 -qs 100 -na;
+done;
+
