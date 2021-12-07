@@ -72,5 +72,5 @@ for i in *.sort.merge.bed;
   done;
 
 #Determining locus presence in multiple genomes
-sh pipeline_create_conserved_elements.sh
+sh create_conserved_elements.sh
 #then you will get a file called 'conserved_elements.bed', with the coordinates of all conserved elements shared by the species above
