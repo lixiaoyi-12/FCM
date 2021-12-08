@@ -1,6 +1,6 @@
 # FCM
 identify conserved elements across all non-vocal learners
-======
+------
 first download genomes from NCBI via wget<br>
 create a dictionary<br>
 ```shell
@@ -99,3 +99,40 @@ Determining locus presence in multiple genomes<br>
 sh create_conserved_elements.sh
 ```
 then you will get a file called 'conserved_elements.bed', with the coordinates of all conserved elements shared by the species above<br>
+then you repeat the whole process using genomes of vocal learners and get conserved elements across all vocal learners<br>
+
+identify conserved elements lost in at least one vocal learners
+-----
+extract FCM based on two sets of conserved elements<br>
+```shell
+mkdir fcm
+cd fcm
+cp ../nvl/beds/conserved_elements.bed ./
+cp ../vl/beds/conserved_elements.bed conserved_elements_vl.bed
+bedtools intersect -a conserved_elements.bed -b conserved_elements_vl.bed -v > nsce.txt
+```
+then run the script 'pipeline_create_nsuce_table.sh' to calculate the number of fast evolving conserved elements in vocal learning lineages mapped to each vocal learners we choose<br>
+```shell
+sh pipeline_create_nsuce_table.sh
+```
+we can then write the script 'create_nsuce_list_0.sh' and 'create_nsuce_list_1.sh' based on the results of running the last script by changing the number of intersection and species name<br>
+then run the scripts<br>
+```shell
+sh create_nsuce_list_0.sh
+sh create_nsuce_list_1.sh
+sh create_nsuce_list.sh
+```
+then you will get a table with each fast evolved conserved elements in it, if the fast evolved conserved elements can mapped to the corresponding vocal learner, it will be 1 recorded in the table. Otherwise it will be 0 recorded<br>
+then you can choose your own strategy to extract FCM, here we consider fast evolved conserved elements lost in at least two lineages as FCM (if a fast evolved conserved element is unmapped in more than 16 songbirds, it is considered lost in songbirds)<br>
+by running the following script, we extract FCM under this strategy<br>
+```shell
+sh pipeline_create_fecel.sh
+```
+then you will get a file called 'fcm.txt' with all the FCM in it<br>
+
+identify FCM-associated genes
+----
+to get genes close to FCM, run the following script<br>
+```shell
+sh annotation.sh
+```
