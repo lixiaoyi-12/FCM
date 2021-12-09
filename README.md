@@ -136,3 +136,12 @@ to get genes close to FCM, run the following script<br>
 ```shell
 sh annotation.sh
 ```
+calculate phastcons scores of every element
+----
+take the calculation of conserved elements as an example
+```shell
+bedtools map -a conserved_elements.bed -b scores.bed -c 5 -o mean > scores_conserved_elements.txt
+```
+scripts of other analysis
+---
+you can view the R script of Topanat tissue enrichment anlysis in ''
