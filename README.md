@@ -1,4 +1,16 @@
 # FCM
+
+to identify FCM based on original genomes of your target species and non-target species, you can run the command following the pipeline below<br>
+these are the software you need to download within the pipeline:<br>
+
+[phyluce](https://github.com/faircloth-lab/phyluce)<br>
+[art](https://www.niehs.nih.gov/research/resources/software/biostatistics/art/)<br>
+[stampy](https://www.well.ox.ac.uk/research/research-groups/lunter-group/lunter-group/stampy)<br>
+[bwa](https://github.com/lh3/bwa)<br>
+[samtools](http://www.htslib.org)<br>
+[bedtools](https://bedtools.readthedocs.io/en/latest/content/installation.html)<br>
+there are also other part of the pipeline performed in R<br>
+
 identify conserved elements across all non-vocal learners
 ------
 first download genomes from NCBI via wget<br>
@@ -127,7 +139,7 @@ mkdir fcm
 cd fcm
 cp ../nvl/beds/conserved_elements.bed ./
 cp ../vl/beds/conserved_elements.bed conserved_elements_vl.bed
-bedtools intersect -a conserved_elements.bed -b conserved_elements_vl.bed -v > nsce.txt
+bedtools intersect -a conserved_elements.bed -b conserved_elements_vl.bed -v > nsuce.txt
 ```
 then run the script 'generate_fcm.sh' to calculate the number of fast evolving conserved elements in vocal learning lineages mapped to each vocal learners we choose, and generate the final FCMs according to certain threshold<br>
 
