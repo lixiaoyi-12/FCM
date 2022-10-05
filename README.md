@@ -1,14 +1,14 @@
 # FCM
 
 to identify FCM based on original genomes of your target species and non-target species, you can run the command following the pipeline below<br>
-these are the software you need to download within the pipeline:<br>
+these are the software you need to download and the version I have used within the pipeline:<br>
 
-[phyluce](https://github.com/faircloth-lab/phyluce)<br>
-[art](https://www.niehs.nih.gov/research/resources/software/biostatistics/art/)<br>
-[stampy](https://www.well.ox.ac.uk/research/research-groups/lunter-group/lunter-group/stampy)<br>
-[bwa](https://github.com/lh3/bwa)<br>
-[samtools](http://www.htslib.org)<br>
-[bedtools](https://bedtools.readthedocs.io/en/latest/content/installation.html)<br>
+[phyluce-1.7.1](https://github.com/faircloth-lab/phyluce)<br>
+[art-src-MountRainier-2016.06.05](https://www.niehs.nih.gov/research/resources/software/biostatistics/art/)<br>
+[stampy-1.0.32](https://www.well.ox.ac.uk/research/research-groups/lunter-group/lunter-group/stampy)<br>
+[bwa-0.7.17](https://github.com/lh3/bwa)<br>
+[samtools-1.14](http://www.htslib.org)<br>
+[bedtools-2.30.0](https://bedtools.readthedocs.io/en/latest/content/installation.html)<br>
 there are also other part of the pipeline performed in R<br>
 
 identify conserved elements across all non-vocal learners
