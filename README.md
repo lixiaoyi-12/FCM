@@ -9,6 +9,8 @@ these are the software you need to download and the version I have used within t
 [bwa-0.7.17](https://github.com/lh3/bwa)<br>
 [samtools-1.14](http://www.htslib.org)<br>
 [bedtools-2.30.0](https://bedtools.readthedocs.io/en/latest/content/installation.html)<br>
+[ucse:fatotwobit](https://genome.ucsc.edu/goldenPath/help/twoBit.html)<br>
+[biopython](https://biopython.org)<br>
 there are also other part of the pipeline performed in R<br>
 
 identify conserved elements across all non-vocal learners
@@ -72,6 +74,7 @@ map reads to reference genome using stampy<br>
 cd ..
 mkdir alignments
 cd alignments
+bwa index ../base/chicken.fasta
 for i in <name list of all non-target species>;
 	do
 	bwa aln -q10 -t12 ../base/chicken.fasta ../reads/$i-reads.fq > 1.sai
