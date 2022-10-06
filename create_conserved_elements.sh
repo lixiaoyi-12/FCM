@@ -1,22 +1,6 @@
-#!/bin/sh
-#___INFO__MARK_BEGIN__
-# Welcome to use  EasyCluster V1.6 All Rights Reserved.
-#
-#___INFO__MARK_END__
-#
-#$ -S /bin/sh
-#$ -N intersect 
-#$ -j y
-#$ -o ./
-#$ -e ./
-#$ -cwd
-#$ -q normal.q,short.q,serial.q
-#$ -pe thread 1-1 
-
 source ~/.bash_profile
 hash -r
 
-#the elements identified
 bedtools intersect -a blue_crowned_manakin-to-chicken-MAPPING.bam.sort.merge.strip.bed -b chimney_swift-to-chicken-MAPPING.bam.sort.merge.strip.bed > test.bed
 bedtools intersect -a test.bed -b common_cuckoo-to-chicken-MAPPING.bam.sort.merge.strip.bed > test2.bed
 bedtools intersect -a test2.bed -b crested_ibis-to-chicken-MAPPING.bam.sort.merge.strip.bed > test3.bed
