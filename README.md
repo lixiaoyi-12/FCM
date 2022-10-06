@@ -9,9 +9,11 @@ these are the software you need to download and the version I have used within t
 [bwa-0.7.17](https://github.com/lh3/bwa)<br>
 [samtools-1.14](http://www.htslib.org)<br>
 [bedtools-2.30.0](https://bedtools.readthedocs.io/en/latest/content/installation.html)<br>
-[ucse:fatotwobit](https://genome.ucsc.edu/goldenPath/help/twoBit.html)<br>
+[ucsc:fatotwobit](https://genome.ucsc.edu/goldenPath/help/twoBit.html)<br>
 [biopython](https://biopython.org)<br>
 there are also other part of the pipeline performed in R<br>
+the part before "Determining locus presence in multiple genomes" is basically written according to the [phyluce pipeline](https://phyluce.readthedocs.io/en/latest/tutorials/tutorial-4.html), you can also refer to it when having trobles running the command<br>
+
 
 identify conserved elements across all non-vocal learners
 ------
@@ -98,7 +100,7 @@ to begin the filter process, we firstly need to convert the format of mapping re
 cd ..
 mkdir beds
 cd beds
-cp ../alignments/*bam ./
+cp ../alignments/*-MAPPING.bam ./
 for i in *.bam; 
 	do 
 	echo $i; 
