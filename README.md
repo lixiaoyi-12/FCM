@@ -170,6 +170,6 @@ bedtools map -a conserved_elements.bed -b scores.bed -c 5 -o mean > scores_conse
 ```
 Script of other analysis
 ---
-meme_commond.sh is used when predicted motifs in self-generated regions based on MEME package
-tomtom_command.sh is used when compared newly predicted motifs with known motifs
-rm_redundant_gallus.py is used before 
+meme_commond.sh is used when predicted motifs in self-generated regions based on MEME package<br>
+tomtom_command.sh is used when compared newly predicted motifs with known motifs<br>
+rm_redundant_gallus.py is used before calculated species do not have alignment in WGA results <br>
