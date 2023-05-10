@@ -50,7 +50,7 @@ cd ..
 mkdir reads
 cd reads
 ```
-we will combine seqkit, a very useful tool for FASTA/FASTQ format [manipulation](https://github.com/shenwei356/seqkit) into our script<br>
+we will combine [seqkit](https://github.com/shenwei356/seqkit), a very useful tool for FASTA/FASTQ format manipulation into our script<br>
 ```shell
 sh genome_pieces.sh
 ```
