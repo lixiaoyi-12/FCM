@@ -125,7 +125,7 @@ noted that you need to change the species name in the scirpt into your specific 
 sh create_conserved_elements.sh
 ```
 then you will get a file called 'conserved_elements.bed', with the coordinates of all conserved elements shared by the species above<br>
-then you repeat the whole process using genomes of target species and get conserved elements across all target species called 'conserved_elements_vl.bed'<br>
+then you repeat the whole process using genomes of target species and get shared regions between each target species and reference species<br>
 
 identify conserved elements lost in at least one vocal learners
 -----
@@ -133,8 +133,6 @@ identify conserved elements lost in at least one vocal learners
 mkdir fcm
 cd fcm
 cp ../nvl/beds/conserved_elements.bed ./
-cp ../vl/beds/conserved_elements.bed conserved_elements_vl.bed
-bedtools intersect -a conserved_elements.bed -b conserved_elements_vl.bed -v > nsuce.txt
 ```
 then run the script 'generate_fcm.sh' to calculate the number of fast evolving conserved elements in vocal learning lineages mapped to each vocal learners we choose, and generate the final FCMs according to certain threshold<br>
 
