@@ -42,7 +42,7 @@ for critter in *;
 	faToTwoBit $critter/$critter.fasta $critter/${critter%.*}.2bit; 
 done;
 ```
-simulate reads from the respective genomes
+tiling reads from the respective genomes
 -------------
 create a dictionary of simulated reads<br>
 ```shell
@@ -50,16 +50,10 @@ cd ..
 mkdir reads
 cd reads
 ```
-To make simulation of genomes we downloaded, we'll use art, which is a professional simulator<br> 
+we will combine seqkit, a very useful tool for FASTA/FASTQ format [manipulation](https://github.com/shenwei356/seqkit) into our script<br>
 ```shell
-for i in <name list of all non-target species>;
-	do
-	art_illumina --in ../genomes/$i/$i.fasta --out $i-reads --len 100 --fcov 20  -ir 0.0 -dr 0.0 -qs 100 -na;
-done;
+sh genome_pieces.sh
 ```
-
-The parameters above reflect to the length of reads simulated (--len), the coverage when simulation (-fcov), the read insertion rate (-ir), deletion rate (-dr), the amount to shift every first-read quality score by (-qs)<br>
-You can also simulate paired-end reads using --ir2, --dr2 parameters. Details see the manual of art<br>
 
 align simulated reads to reference genome
 --------
@@ -115,17 +109,13 @@ merge regions with the distance smaller than 20bp, you can choose whether to do 
 ```shell
 for i in *.bam.sort.bed; do echo $i; bedtools merge -d 20 -i $i > ${i%.*}.merge.bed; done
 ```
-then we need to remove repetitive intervals in shared regions extracted above<br>
+then we need to remove repetitive sites in shared regions extracted above<br>
 ```shell
-for i in *.sort.merge.bed;
-  do
-      phyluce_probe_strip_masked_loci_from_set \
-          --bed $i \
-          --twobit ../genomes/chicken/chicken.2bit \
-          --output ${i%.*}.strip.bed \
-          --filter-mask 0.25 \
-          --min-length 0
-  done;
+for i in <name list of all non-target species>;
+	do
+	cp remove_repetitive_site.sh remove_repetitive_site-$i.sh;
+	sed -i 's/species/$i/g' remove_repetitive_site-$i.sh;
+	sh remove_repetitive_site.sh;
 ```
 Determining locus presence in multiple genomes
 ---------
