@@ -117,14 +117,14 @@ noted that you need to change the species name in the scirpt into your specific 
 sh create_conserved_elements.sh
 ```
 then you will get a file called 'conserved_elements.bed', with the coordinates of all conserved elements shared by the species above and where the length is shorter than 10 bp and where > 25 % of the base genome is masked using a phyluce script<br>
-'''shell
+```shell
 phyluce_probe_strip_masked_loci_from_set \
           --bed conserved_elements.bed \
           --twobit chicken.2bit \
           --output conserved_elements.length.strip.bed \
           --filter-mask 0.25 \
           --min-length 10
-'''
+```
 then you repeat the whole process using genomes of target species and get shared regions between each target species and reference species<br>
 
 identify conserved elements lost in at least one vocal learners
