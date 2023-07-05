@@ -4,7 +4,6 @@ to identify FCM based on original genomes of your target species and non-target 
 these are the software you need to download and the version I have used within the pipeline:<br>
 
 [phyluce-1.7.1](https://github.com/faircloth-lab/phyluce)<br>
-[art-src-MountRainier-2016.06.05](https://www.niehs.nih.gov/research/resources/software/biostatistics/art/)<br>
 [stampy-1.0.32](https://www.well.ox.ac.uk/research/research-groups/lunter-group/lunter-group/stampy)<br>
 [bwa-0.7.17](https://github.com/lh3/bwa)<br>
 [samtools-1.14](http://www.htslib.org)<br>
@@ -55,7 +54,7 @@ we will combine [seqkit](https://github.com/shenwei356/seqkit), a very useful to
 sh genome_pieces.sh
 ```
 
-align simulated reads to reference genome
+align reads to reference genome
 --------
 Then we will use stampy, a statistical algorithm especially for performing alignment between divergent species, first we need to make index and prepare reference genome, we use chicken genome for example here<br>
 ```shell
@@ -109,14 +108,7 @@ merge regions with the distance smaller than 20bp, you can choose whether to do 
 ```shell
 for i in *.bam.sort.bed; do echo $i; bedtools merge -d 20 -i $i > ${i%.*}.merge.bed; done
 ```
-then we need to remove repetitive sites in shared regions extracted above<br>
-```shell
-for i in <name list of all non-target species>;
-	do
-	cp remove_repetitive_site.sh remove_repetitive_site-$i.sh;
-	sed -i 's/species/$i/g' remove_repetitive_site-$i.sh;
-	sh remove_repetitive_site.sh;
-```
+
 Determining locus presence in multiple genomes
 ---------
 using the coordinates of every shared region between exampler species and reference species, we now can determine conserved elements shared by all species and reference genome by running a shell script<br>
@@ -124,7 +116,15 @@ noted that you need to change the species name in the scirpt into your specific 
 ```shell
 sh create_conserved_elements.sh
 ```
-then you will get a file called 'conserved_elements.bed', with the coordinates of all conserved elements shared by the species above<br>
+then you will get a file called 'conserved_elements.bed', with the coordinates of all conserved elements shared by the species above and where the length is shorter than 10 bp and where > 25 % of the base genome is masked using a phyluce script<br>
+'''shell
+phyluce_probe_strip_masked_loci_from_set \
+          --bed conserved_elements.bed \
+          --twobit chicken.2bit \
+          --output conserved_elements.length.strip.bed \
+          --filter-mask 0.25 \
+          --min-length 10
+'''
 then you repeat the whole process using genomes of target species and get shared regions between each target species and reference species<br>
 
 identify conserved elements lost in at least one vocal learners
