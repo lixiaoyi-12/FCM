@@ -51,7 +51,10 @@ cd reads
 ```
 we will combine [seqkit](https://github.com/shenwei356/seqkit), a very useful tool for FASTA/FASTQ format manipulation into our script<br>
 ```shell
-sh genome_pieces.sh
+seqkit faidx species.fasta
+awk '{print$1,$2}' species.fasta.fai > species.txt
+bedtools makewindows -g species.txt -w 100 -s 5 > generate_window.bed
+bedtools getfasta -fi species.fasta -bed generate_window.bed -fo species.window.fasta
 ```
 
 align reads to reference genome
