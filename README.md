@@ -16,6 +16,8 @@ the part before "Determining locus presence in multiple genomes" is basically wr
 
 identify conserved elements across all non-vocal learners
 ------
+select genomes of non-vocal learners
+------
 first download genomes from NCBI via wget<br>
 create a dictionary<br>
 ```shell
@@ -41,7 +43,7 @@ for critter in *;
 	faToTwoBit $critter/$critter.fasta $critter/${critter%.*}.2bit; 
 done;
 ```
-tiling reads from the respective genomes
+tile short reads from each genome
 -------------
 create a dictionary of simulated reads<br>
 ```shell
@@ -57,7 +59,7 @@ bedtools makewindows -g species.txt -w 100 -s 5 > generate_window.bed
 bedtools getfasta -fi species.fasta -bed generate_window.bed -fo species.window.fasta
 ```
 
-align reads to reference genome
+align short reads to reference genome using Stampy
 --------
 Then we will use stampy, a statistical algorithm especially for performing alignment between divergent species, first we need to make index and prepare reference genome, we use chicken genome for example here<br>
 ```shell
@@ -89,7 +91,7 @@ for i in <name list of all non-target species>;
 	samtools view -q 1 -h -F 4 -b $i-to-chicken.bam > $i-to-chicken-MAPPING.bam;
 done;
 ```
-adjust the format of mapping results and filter
+merge close regions
 ---------
 to begin the filter process, we firstly need to convert the format of mapping results to bed file, which is the format contain the coordinates information and convenient for further manipulation<br>
 ```shell
@@ -112,13 +114,16 @@ merge regions with the distance smaller than 20bp, you can choose whether to do 
 for i in *.bam.sort.bed; do echo $i; bedtools merge -d 20 -i $i > ${i%.*}.merge.bed; done
 ```
 
-Determining locus presence in multiple genomes
+identify overlapping regions across all non-vocal learners
 ---------
 using the coordinates of every shared region between exampler species and reference species, we now can determine conserved elements shared by all species and reference genome by running a shell script<br>
 noted that you need to change the species name in the scirpt into your specific species<br>
 ```shell
 sh create_conserved_elements.sh
 ```
+
+remove regions overlap masked regions in genome
+--------
 then you will get a file called 'conserved_elements.bed', with the coordinates of all conserved elements shared by the species above and where the length is shorter than 10 bp and where > 25 % of the base genome is masked using a phyluce script<br>
 ```shell
 phyluce_probe_strip_masked_loci_from_set \
@@ -130,7 +135,7 @@ phyluce_probe_strip_masked_loci_from_set \
 ```
 then you repeat the whole process using genomes of target species and get shared regions between each target species and reference species<br>
 
-identify conserved elements lost in at least one vocal learners
+identify CLCFs
 -----
 ```shell
 mkdir fcm
