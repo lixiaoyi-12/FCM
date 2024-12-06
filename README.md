@@ -88,7 +88,7 @@ then we filter the mapping results, keep the regions uniquely mapped successfull
 ```shell
 for i in <name list of all non-target species>;
 	do
-	samtools view -q 1 -h -F 4 -b $i-to-chicken.bam > $i-to-chicken-MAPPING.bam;
+	samtools view -q 10 -h -F 4 -b $i-to-chicken.bam > $i-to-chicken-MAPPING.bam;
 done;
 ```
 merge close regions
