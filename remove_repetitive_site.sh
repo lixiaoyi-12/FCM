@@ -1,4 +1,4 @@
-bedtools intersect -b species-to-chicken-MAPPING.bam.sort.merge.bed -a chicken_genoes_bysite.bed -wa > species-to-chicken-MAPPING.bysite.bed
+bedtools intersect -b species-to-chicken-MAPPING.bam.sort.merge.bed -a chicken_genomes_bysite.bed -wa > species-to-chicken-MAPPING.bysite.bed
 bedtools getfasta -bed species-to-chicken-MAPPING.bysite.bed -fi chicken.fasta -fo species-to-chicken-MAPPING.bysite.fasta
 sed -i 's/c/n/g' species-to-chicken-MAPPING.bysite.fasta 
 sed -i 's/a/n/g' species-to-chicken-MAPPING.bysite.fasta
