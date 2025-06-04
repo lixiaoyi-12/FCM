@@ -135,7 +135,7 @@ phyluce_probe_strip_masked_loci_from_set \
 ```
 then you repeat the whole process using genomes of target species and get shared regions between each target species and reference species<br>
 
-identify CLCFs
+identify CLCAs
 -----
 ```shell
 mkdir fcm
@@ -149,7 +149,7 @@ sh generate_fcm.sh
 ```
 then you will get a file called 'fcm.bed' with all the FCM in it<br>
 
-identify FCM-associated genes
+identify CLAC-associated genes
 ----
 to get genes close to FCM, run the following script<br>
 ```shell
