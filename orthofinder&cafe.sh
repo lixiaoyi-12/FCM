@@ -13,6 +13,10 @@ orthofinder -f ./protein_cdhit/ -t 16 -o ./Results -op
 #or
 orthofinder -b ./Results/WorkingDirectory/
 
+# in the next step, we will use the file ./Results/Orthogroups/Orthogroups.GeneCount.tsv 
+# we change the name format to tab and filter orthologs less than 100
+python change_orthofinder_count_to_tab.py Orthogroups.GeneCount.ts
+#then we will get a file called Orthogroups.less.than.100.tsv 
 # perform cafe 
 cafe cafe.sh
 
